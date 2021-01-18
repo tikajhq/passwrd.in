@@ -1,8 +1,12 @@
-# passwrd
+# [passwrd.in](passwrd.in)
 
-Private, Secure & Simple password generator.
+Private, Secure & Simple password generator. It is just another password generator but with an objective to make password generation simple, secure, non-proprietary, without ads, without promotions, without upsell - just dead-simple.
 
+So that sys-admin, developer, business owner, normal user, kids & everyone else who needs a password use a potentially secure password without a second thought.
 
+And there is an effortless layer of security.
+
+![Password Generator](public/screenshot.png "")
 
 
 ## Why ?
@@ -44,3 +48,5 @@ yarn lint
 
 - [ ] Munged Password
 - [ ] Predictable Password (salt keyword with master password, hash it & give partial hash as password.)
+
+

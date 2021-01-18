@@ -2,7 +2,7 @@
   <div>
     <cv-text-input
         label="Generated Password"
-        helper-text="This is randomly generated password, please copy it in some other location, even we won't be able to regenerate it."
+        helper-text="This is randomly generated password, please copy it to some other location, even we won't be able to regenerate it."
         :value="password"
         readonly="true"
     >
