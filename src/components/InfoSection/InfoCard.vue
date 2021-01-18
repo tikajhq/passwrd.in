@@ -6,7 +6,7 @@
       {{ splitHeading[0] }}
       <strong>{{ splitHeading[1] }}</strong>
     </h4>
-    <p class="info-card__body">{{ body }}</p>
+    <p class="info-card__body" v-html="body"></p>
     <component :is="icon" />
   </div>
 </template>
@@ -63,7 +63,7 @@ export default {
     border-left: 1px solid $ui-03;
 
     svg {
-      margin-top: $layout-06;
+      margin-top: $layout-04;
     }
   }
 }

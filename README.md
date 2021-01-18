@@ -1,4 +1,4 @@
-# [passwrd.in](passwrd.in)
+# [passwrd.in](https://passwrd.in)
 
 Private, Secure & Simple password generator. It is just another password generator but with an objective to make password generation simple, secure, non-proprietary, without ads, without promotions, without upsell - just dead-simple.
 

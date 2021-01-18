@@ -43,8 +43,8 @@
 
     <info-section heading="The Principles" class="landing-page__r3">
       <info-card
-          heading="passwrd.in is Private"
-          body="Everything happens in your browser, you don't need any if's, we don't even know how many & what type of passwords you have generated."
+          heading="passwrd.in is Open"
+          body="It's a distributed effort, guided by the principles of the open-source movement. passwrd.in's users are also it's makers, and everyone is encouraged to contribute. <br/><br/> <a href='https://github.com/tikajhq/passwrd.in'>Visit Github</a>"
           :icon="PersonFavorite32"
       />
       <info-card
