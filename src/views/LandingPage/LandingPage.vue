@@ -28,15 +28,15 @@
               </div>
             </div>
           </cv-tab>
-          <cv-tab label="Predictable">
-            <div class="bx--grid">
-              <div class="bx--row landing-page__tab-content">
-                <div class="bx--col-lg-16">
-                  Coming Soon
-                </div>
-              </div>
-            </div>
-          </cv-tab>
+<!--          <cv-tab label="Predictable">-->
+<!--            <div class="bx&#45;&#45;grid">-->
+<!--              <div class="bx&#45;&#45;row landing-page__tab-content">-->
+<!--                <div class="bx&#45;&#45;col-lg-16">-->
+<!--                  Coming Soon-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </cv-tab>-->
         </cv-tabs>
       </div>
     </div>
