@@ -39,24 +39,22 @@
       "@context": "https://schema.org",
       "@type": "WebApplication",
       "name": "passwrd.in - Easy to Remember Password Generator",
-      "description": "Generate easy to remember passwords that are hard to guess with multiple methods: memorable word combinations, domain-based passwords, passphrases with hacker substitutions",
+      "description": "Generate easy to remember passwords that are hard to guess",
       "url": "https://passwrd.in",
       "applicationCategory": "SecurityApplication",
       "offers": {
         "@type": "Offer",
         "price": "0",
         "priceCurrency": "USD"
-      },
-      "featureList": ["Easy to Remember Passwords", "Memorable Passphrases", "Domain-Based Password Generation", "Hacker Character Substitutions", "Region & Interest Personalization", "Random Password Generation", "PIN Generation", "Custom Pattern Passwords", "Client-side Security", "No Data Collection"]
+      }
     }
     </script>
     
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <link rel="icon" href="/favicon.ico">
 </head>
 <body>
 <noscript>
     <strong>passwrd.in requires JavaScript to generate secure passwords. Please enable JavaScript to continue.</strong>
 </noscript>
 <div id="app"></div>
-</body>
-</html>
+    <script type="module" src="/src/main.js"></script>

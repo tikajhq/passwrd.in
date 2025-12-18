@@ -25,3 +25,4 @@ pnpm-debug.log*
 yan.lock
 .idea
 *.iml
+.vite-*

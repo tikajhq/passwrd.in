@@ -54,15 +54,19 @@ export default {
     const post = ref(null);
     const md = new MarkdownIt();
 
-    watchEffect(() => {
+    watchEffect(async () => {
       const slug = route.params.slug;
       try {
-        const postsContext = require.context('@/posts', false, /\.md$/);
-        const key = `./${slug}.md`;
+        // Use import.meta.glob to load markdown files
+        const modules = import.meta.glob('@/posts/*.md', { query: '?raw', import: 'default' });
+        const modulePath = `/src/posts/${slug}.md`;
         
-        if (postsContext.keys().includes(key)) {
-          const module = postsContext(key);
-          const content = module.default || module;
+        // Find matching module
+        const moduleKey = Object.keys(modules).find(key => key.includes(`/${slug}.md`));
+        
+        if (moduleKey) {
+          const loadModule = modules[moduleKey];
+          const content = await loadModule();
           
           // Parse frontmatter manually (same as Blog.vue)
           const lines = content.split('\n');
@@ -103,7 +107,7 @@ export default {
             content: md.render(markdownContent)
           };
         } else {
-          console.error('Post not found:', key, 'Available:', postsContext.keys());
+          console.error('Post not found:', slug);
           post.value = null;
         }
       } catch (e) {

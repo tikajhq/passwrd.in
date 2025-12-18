@@ -53,17 +53,14 @@ export default {
     const blogPosts = ref([]);
     const loading = ref(true);
 
-    const loadPosts = () => {
+    const loadPosts = async () => {
       try {
-        // Use require.context to load all markdown files
-        const postsContext = require.context('@/posts', false, /\.md$/);
+        // Use import.meta.glob to load all markdown files
+        const modules = import.meta.glob('@/posts/*.md', { query: '?raw', import: 'default' });
         const posts = [];
         
-        postsContext.keys().forEach(key => {
+        for (const [path, content] of Object.entries(modules)) {
           try {
-            const module = postsContext(key);
-            const content = module.default || module;
-            
             // Parse frontmatter
             const lines = content.split('\n');
             let inFrontmatter = false;
@@ -91,16 +88,16 @@ export default {
             });
             
             if (frontmatter.title) {
-              const slug = key.replace('./', '').replace('.md', '');
+              const slug = path.split('/').pop().replace('.md', '');
               posts.push({
                 ...frontmatter,
                 slug
               });
             }
           } catch (err) {
-            console.error('Error loading post:', key, err);
+            console.error('Error loading post:', path, err);
           }
-        });
+        }
         
         blogPosts.value = posts.sort((a, b) => new Date(b.date) - new Date(a.date));
       } catch (error) {
