@@ -57,16 +57,14 @@ export default {
     watchEffect(async () => {
       const slug = route.params.slug;
       try {
-        // Use import.meta.glob to load markdown files
-        const modules = import.meta.glob('@/posts/*.md', { query: '?raw', import: 'default' });
-        const modulePath = `/src/posts/${slug}.md`;
+        // Use import.meta.glob to load markdown files (eager for SSR)
+        const modules = import.meta.glob('@/posts/*.md', { query: '?raw', import: 'default', eager: true });
         
         // Find matching module
         const moduleKey = Object.keys(modules).find(key => key.includes(`/${slug}.md`));
         
         if (moduleKey) {
-          const loadModule = modules[moduleKey];
-          const content = await loadModule();
+          const content = modules[moduleKey];
           
           // Parse frontmatter manually (same as Blog.vue)
           const lines = content.split('\n');

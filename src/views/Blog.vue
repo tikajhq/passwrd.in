@@ -55,8 +55,8 @@ export default {
 
     const loadPosts = async () => {
       try {
-        // Use import.meta.glob to load all markdown files
-        const modules = import.meta.glob('@/posts/*.md', { query: '?raw', import: 'default' });
+        // Use import.meta.glob to load all markdown files (eager for SSR)
+        const modules = import.meta.glob('@/posts/*.md', { query: '?raw', import: 'default', eager: true });
         const posts = [];
         
         for (const [path, content] of Object.entries(modules)) {
