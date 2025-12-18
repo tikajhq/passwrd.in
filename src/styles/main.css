@@ -1,0 +1,131 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 7%;
+    --foreground: 0 0% 95%;
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 95%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14%;
+    --secondary-foreground: 0 0% 95%;
+    --muted: 0 0% 14%;
+    --muted-foreground: 0 0% 60%;
+    --accent: 0 0% 98%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 80% 50%;
+    --destructive-foreground: 0 0% 95%;
+    --border: 0 0% 20%;
+    --input: 0 0% 12%;
+    --ring: 0 0% 60%;
+    --radius: 0;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+  #app {
+    position: relative;
+    z-index: 3;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50 disabled:pointer-events-none bg-primary text-primary-foreground h-10 px-4 clip-corner;
+  }
+  
+  .btn-primary:hover {
+    @apply opacity-90;
+  }
+  
+  .btn-secondary {
+    @apply inline-flex items-center justify-center text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50 disabled:pointer-events-none bg-secondary text-secondary-foreground h-10 px-4 clip-corner border border-border;
+  }
+  
+  .btn-secondary:hover {
+    @apply bg-secondary/80;
+  }
+  
+  .input-field {
+    @apply flex h-10 w-full clip-corner border border-input bg-input px-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  
+  .glass-card {
+    @apply bg-card text-card-foreground p-4 clip-corner border border-border;
+  }
+  
+  .glass-header {
+    @apply bg-card/50 border-b border-border;
+  }
+  
+  .glass-section {
+    @apply bg-card/30 clip-corner border border-border;
+  }
+  
+  .hover-lift {
+    @apply transition-all duration-200;
+  }
+  
+  .hover-lift:hover {
+    @apply border-foreground/20;
+  }
+  
+  .clip-corner {
+    clip-path: polygon(
+      0 8px,
+      8px 0,
+      100% 0,
+      100% calc(100% - 8px),
+      calc(100% - 8px) 100%,
+      0 100%
+    );
+    position: relative;
+  }
+  
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient 3s ease infinite;
+  }
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(138, 43, 226, 0.8);
+  }
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}

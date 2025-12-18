@@ -31,9 +31,8 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style scoped>
 .simple__page{
-
   padding-top: 5em;
   padding-bottom: 5em;
   min-height: 90vh;

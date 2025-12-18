@@ -1,52 +1,101 @@
-# [passwrd.in](https://passwrd.in)
+# passwrd.in - Secure Password Generator
 
-Private, Secure & Simple password generator. It is just another password generator but with an objective to make password generation simple, secure, non-proprietary, without ads, without promotions, without upsell - just dead-simple.
+> 🔒 **Private, Secure & Simple Password Generation**  
+> No Ads • No Tracking • 100% Open Source
 
-So that sys-admin, developer, business owner, normal user, kids & everyone else who needs a password use a potentially secure password without a second thought.
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Vue 3](https://img.shields.io/badge/Vue-3.x-brightgreen.svg)](https://vuejs.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.x-38B2AC.svg)](https://tailwindcss.com/)
 
-And there is an effortless layer of security.
+## ✨ Features
 
-![Password Generator](public/screenshot.png "")
+### 🎯 Multiple Password Generation Methods
+- **Random Passwords**: Fully customizable length (8-64 chars) with character type selection
+- **Passphrases**: Memorable passwords using random word combinations
+- **PIN Generator**: Secure numeric PINs (4-12 digits) with pattern avoidance
+- **Custom Patterns**: Define your own password structure (e.g., `LLLLddddSSS`)
 
+### 🔐 Security First
+- ✅ **100% Client-Side**: All passwords generated in your browser using `crypto.getRandomValues()`
+- ✅ **Zero Data Collection**: No tracking, no analytics, no servers involved
+- ✅ **Password Strength Meter**: Real-time strength analysis
+- ✅ **Open Source**: Full transparency - review our code on GitHub
 
-## Why ?
+### 🎨 Modern UI/UX
+- Built with **Vue 3** Composition API
+- Styled with **Tailwind CSS** for lightweight, responsive design
+- Clean, distraction-free interface
+- Mobile-first responsive design
 
-- A lot of existing website either advertise themselves or they make it a complex process.
-- Few of them collect password for "analytics" purposes.
-- Sometimes you need a strong password, sometimes you need easy to remember.
-- There is password generation feature in chrome - sometimes it doesn't work.
-- You are a sys admin, org admin or a developer and you need to give good password to business user - rather test, 1234 .... you know it !
-- You just need a website which can give you a password without any bullshit.
-- You want to self host fancy password generator. 
+### 📚 Educational Content
+- **Security Blog**: Learn about password best practices
+- **Why passwrd.in**: Understand our privacy-first approach
+- **API Documentation**: For developers integrating password generation
 
+### 🚀 SEO Optimized
+- Structured data markup
+- Comprehensive meta tags
+- XML Sitemap included
+- Semantic HTML structure
 
-## Project setup
+## 🛠️ Technology Stack
 
+- **Frontend**: Vue 3 (Composition API)
+- **Styling**: Tailwind CSS  
+- **Router**: Vue Router 4
+- **Build Tool**: Vue CLI 5
+- **Security**: Web Crypto API
+
+## 📦 Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/tikajhq/passwrd.in.git
+
+# Navigate to project directory
+cd passwrd.in
+
+# Install dependencies
+npm install
+
+# Run development server
+npm run serve
+
+# Build for production
+npm run build
 ```
-yarn install
-```
 
-### Compiles and hot-reloads for development
+## 🌟 What Makes passwrd.in Unique
 
-```
-yarn serve
-```
+| Feature | passwrd.in | Competitors |
+|---------|-----------|-------------|
+| Client-side only | ✅ | ❌ Most track usage |
+| Zero ads | ✅ | ❌ Most have ads |
+| Open source | ✅ | ❌ Most proprietary |
+| 4+ generation methods | ✅ | ❌ Usually 1-2 |
+|
+## 🔒 Security
 
-### Compiles and minifies for production
+All password generation happens entirely in your browser using the Web Crypto API's `crypto.getRandomValues()`, which provides cryptographically strong random values. We:
 
-```
-yarn build
-```
+- ✅ Never send passwords to any server
+- ✅ Don't use analytics or tracking scripts
+- ✅ Don't store cookies or local storage
+- ✅ Don't collect any user data
 
-### Lints and fixes files
+## 📝 License
 
-```
-yarn lint
-```
+MIT License - see [LICENSE](LICENSE) file for details
 
-## TODO:
+## 🤝 Contributing
 
-- [ ] Munged Password
-- [ ] Predictable Password (salt keyword with master password, hash it & give partial hash as password.)
+Contributions are welcome! Please feel free to submit a Pull Request.
 
+## 📧 Contact
 
+- Website: [passwrd.in](https://passwrd.in)
+- GitHub: [@tikajhq](https://github.com/tikajhq)
+
+---
+
+**Made with ❤️ to make security a little easier**

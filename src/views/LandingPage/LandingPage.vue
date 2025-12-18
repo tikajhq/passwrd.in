@@ -1,145 +1,163 @@
 <template>
-  <div class="bx--grid bx--grid--full-width  landing-page">
-    <div class="bx--row landing-page__banner">
-      <div class="bx--col-lg-16">
-        <h1 class="landing-page__heading">passwrd.in is a private, secure & simple password generator</h1><br/>
-        <h4>No Ads, No Promos, No Bullshit !</h4>
+  <div class="landing-page">
+    <!-- Hero Section -->
+    <section class="glass-section py-12 border-b border-border/50">
+      <div class="container mx-auto px-4 text-center">
+        <h1 class="text-4xl md:text-5xl font-bold text-foreground mb-3 animate-gradient bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+          Easy to Remember Password Generator<br/>
+          <span class="text-primary">Hard to Guess, Simple to Use</span>
+        </h1>
+        <p class="text-base text-muted-foreground mb-2">Create passwords that are easy to remember but impossible to crack</p>
+        <p class="text-sm text-muted-foreground max-w-2xl mx-auto">100% private, no tracking, client-side only</p>
       </div>
-    </div>
+    </section>
 
-    <div class="bx--row landing-page__r2">
-      <div class="bx--col bx--no-gutter">
-        <cv-tabs selected="0" aria-label="Tabs navigation">
-          <cv-tab label="Random">
-            <div class="bx--grid">
-              <div class="bx--row landing-page__tab-content">
-                <div class="bx--col-lg-10 bx--offset-lg-3">
-                  <Simple/>
-                </div>
-              </div>
-            </div>
-          </cv-tab>
-          <cv-tab label="Easy to remember">
-            <div class="bx--grid">
-              <div class="bx--row landing-page__tab-content">
-                <div class="bx--col-lg-10 bx--offset-lg-3">
-                  <Readable/>
-                </div>
-              </div>
-            </div>
-          </cv-tab>
-<!--          <cv-tab label="Predictable">-->
-<!--            <div class="bx&#45;&#45;grid">-->
-<!--              <div class="bx&#45;&#45;row landing-page__tab-content">-->
-<!--                <div class="bx&#45;&#45;col-lg-16">-->
-<!--                  Coming Soon-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </cv-tab>-->
-        </cv-tabs>
+    <!-- Password Generator Tabs -->
+    <section class="container mx-auto px-4 -mt-6 mb-8">
+      <div class="glass-card p-6">
+        <div class="flex flex-wrap gap-2 mb-6 border-b border-border/50 pb-2">
+          <button
+            v-for="tab in tabs"
+            :key="tab.id"
+            @click="navigateToTab(tab.id)"
+            :class="[
+              'pb-2 px-3 text-sm font-medium transition-all inline-flex items-center gap-1.5',
+              activeTab === tab.id
+                ? 'text-primary border-b-2 border-primary'
+                : 'text-muted-foreground hover:text-foreground'
+            ]"
+          >
+            <Icon :icon="tab.icon" class="w-4 h-4" />
+            {{ tab.label }}
+          </button>
+        </div>
+
+        <div class="min-h-[320px]">
+          <component :is="currentTabComponent" />
+        </div>
+        
+        <SavedPasswords />
       </div>
-    </div>
+    </section>
 
-    <info-section heading="The Principles" class="landing-page__r3">
+    <!-- Features Section -->
+    <info-section heading="Why Choose passwrd.in?">
       <info-card
-          heading="passwrd.in is Open"
-          body="It's a distributed effort, guided by the principles of the open-source movement. passwrd.in's users are also it's makers, and everyone is encouraged to contribute. <br/><br/> <a href='https://github.com/tikajhq/passwrd.in'>Visit Github</a>"
-          :icon="PersonFavorite32"
+        heading="100% Open Source"
+        body="Fully transparent and open-source. Review our code on GitHub and contribute to make password generation better for everyone. <br/><br/><a href='https://github.com/tikajhq/passwrd.in' class='text-primary-600 hover:underline'>View on GitHub \u2192</a>"
+        icon="lucide:users"
       />
       <info-card
-          heading="passwrd.in is Simple"
-          body="We wanted to make password generation easier. Being a sys admin, developer, business user - you might need to generate a good password while meeting criteria of security - we know the pain - hence we made it super easy."
-          :icon="Application32"
+        heading="Privacy First"
+        body="All passwords are generated directly in your browser. Nothing is sent to our servers. No tracking, no analytics, no data collection. Your passwords are yours alone."
+        icon="lucide:lock"
       />
       <info-card
-          heading="passwrd.in is Secure"
-          body="All passwords are generated in client side, there are no trackers, no improvement programs, no promos, no ads - it's just dead simple javascript code."
-          :icon="Globe32"
+        heading="Simple & Fast"
+        body="Clean, intuitive interface designed for speed. Generate strong passwords instantly without dealing with complex settings or annoying popups."
+        icon="lucide:globe"
       />
     </info-section>
 
+    <!-- SEO Content Section -->
+    <section class="glass-section py-12 border-t border-border/50">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-2xl font-bold text-foreground mb-4">Secure Password Generation Made Easy</h2>
+          <div class="space-y-3 text-sm text-muted-foreground">
+            <p>
+              In today's digital age, strong password security is more critical than ever. passwrd.in provides a free, secure, 
+              and private password generator that helps you create strong, unique passwords for all your online accounts.
+            </p>
+            <p>
+              Unlike many password generators that collect your data or require sign-up, passwrd.in runs entirely in your browser. 
+              We offer multiple generation methods including random passwords, memorable passphrases, and custom pattern-based passwords 
+              to suit different security requirements.
+            </p>
+            <p class="text-sm">
+              <router-link to="/blog" class="text-primary hover:underline">Learn more about password security best practices</router-link>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
-
 </template>
 
 <script>
-import {InfoCard, InfoSection} from '../../components/InfoSection';
-import Globe32 from '@carbon/icons-vue/lib/globe/32';
-import PersonFavorite32 from '@carbon/icons-vue/lib/person--favorite/32';
-import Application32 from '@carbon/icons-vue/lib/application/32';
-import Simple from './Simple';
-import Readable from './Readable'
+import { ref, computed, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { Icon } from '@iconify/vue';
+import { InfoCard, InfoSection } from '../../components/InfoSection';
+import MemorablePassword from './MemorablePassword.vue';
+import DomainPassword from './DomainPassword.vue';
+import RandomPassword from './RandomPassword.vue';
+import PassphrasePassword from './PassphrasePassword.vue';
+import CustomPassword from './CustomPassword.vue';
+import DeveloperTools from './DeveloperTools.vue';
+import SavedPasswords from './SavedPasswords.vue';
 
 export default {
   name: 'LandingPage',
-  components: { InfoSection, InfoCard, Simple,Readable },
-  created () {
-    // Add icons to this
-    Object.assign(this, {
-      Globe32,
-      PersonFavorite32,
-      Application32
-    });
+  components: {
+    Icon,
+    InfoSection,
+    InfoCard,
+    MemorablePassword,
+    DomainPassword,
+    RandomPassword,
+    PassphrasePassword,
+    CustomPassword,
+    DeveloperTools,
+    SavedPasswords
   },
+  setup() {
+    const route = useRoute();
+    const router = useRouter();
+    const activeTab = ref('random');
+    
+    const tabs = [
+      { id: 'random', label: 'Random', component: 'RandomPassword', icon: 'lucide:shuffle', path: '/' },
+      { id: 'memorable', label: 'Easy to Remember', component: 'MemorablePassword', icon: 'lucide:brain', path: '/memorable' },
+      { id: 'passphrase', label: 'Passphrase', component: 'PassphrasePassword', icon: 'lucide:text', path: '/passphrase' },
+      { id: 'domain', label: 'Domain-Based', component: 'DomainPassword', icon: 'lucide:globe', path: '/domain' },
+      { id: 'developer', label: 'Developer Tools', component: 'DeveloperTools', icon: 'lucide:code', path: '/developer' },
+      { id: 'custom', label: 'Custom Pattern', component: 'CustomPassword', icon: 'lucide:settings', path: '/custom' }
+    ];
+    
+    // Set active tab based on route
+    const setTabFromRoute = () => {
+      const currentPath = route.path;
+      const tab = tabs.find(t => t.path === currentPath);
+      if (tab) {
+        activeTab.value = tab.id;
+      } else {
+        activeTab.value = 'random';
+      }
+    };
+    
+    // Navigate to tab
+    const navigateToTab = (tabId) => {
+      const tab = tabs.find(t => t.id === tabId);
+      if (tab && route.path !== tab.path) {
+        router.push(tab.path);
+      }
+    };
+    
+    // Watch route changes
+    watch(() => route.path, setTabFromRoute, { immediate: true });
+    
+    const currentTabComponent = computed(() => {
+      const tab = tabs.find(t => t.id === activeTab.value);
+      return tab ? tab.component : 'RandomPassword';
+    });
+    
+    return {
+      activeTab,
+      tabs,
+      currentTabComponent,
+      navigateToTab
+    };
+  }
 };
 </script>
-
-<style lang="scss">
-@import '../../styles/carbon-utils';
-@import './carbon-overrides';
-@import './mixins';
-
-.landing-page__illo {
-  max-width: 100%;
-}
-
-.landing-page__banner {
-  //padding-top: $spacing-05;
-  //padding-bottom: $spacing-07 * 4;
-  padding: $spacing-10;
-  @include landing-page-background;
-}
-
-.landing-page__heading {
-  @include carbon--type-style('productive-heading-05');
-}
-
-
-.landing-page__r2 {
-  margin-top: rem(-40px);
-}
-
-.landing-page__tab-content {
-  padding-top: 8em;
-  padding-bottom: 8em;
-  min-height: 30em;
-}
-
-.landing-page__subheading {
-  @include carbon--type-style('productive-heading-03');
-  @include carbon--font-weight('semibold');
-}
-
-.landing-page__p {
-  @include carbon--type-style('productive-heading-03');
-  margin-top: $spacing-06;
-  margin-bottom: $spacing-08;
-
-  @include carbon--breakpoint-between((320px + 1), md) {
-    max-width: 75%;
-  }
-}
-
-.landing-page__r3 {
-  padding-top: $spacing-09;
-  padding-bottom: $spacing-09;
-  @include landing-page-background;
-}
-
-.landing-page__label {
-  @include carbon--type-style('heading-01');
-}
-
-
-</style>

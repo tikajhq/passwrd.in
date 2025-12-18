@@ -1,9 +1,11 @@
 <template>
-  <section class="bx--row info-section">
-    <div class="bx--col-md-8 bx--col-lg-4 bx--col-xlg-3">
-      <h3 class="info-section__heading">{{ heading }}</h3>
+  <section class="py-8">
+    <div class="container mx-auto px-4">
+      <h3 class="text-2xl font-bold text-center text-foreground mb-6">{{ heading }}</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <slot />
+      </div>
     </div>
-    <slot />
   </section>
 </template>
 
@@ -15,11 +17,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss">
-@import '../../styles/_carbon-utils';
-
-.info-section__heading {
-  @include carbon--type-style('heading-01');
-}
-</style>

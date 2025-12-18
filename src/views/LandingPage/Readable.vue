@@ -1,93 +1,69 @@
 <template>
-  <div>
-    <cv-text-input
-        label="Generated Password"
-        helper-text="This is randomly generated password, please copy it to some other location, even we won't be able to regenerate it."
-        :value="password"
-        readonly="true"
-    >
-    </cv-text-input>
-    <br/>
-    <br/>
-    <div style="float: left">
-      <cv-slider
-          min="2"
-          max="8"
-          min-label="Weak"
-          max-label="Strong"
-          label="Number of words"
-          v-model="length"
-          @change="generatePassword"
-      ></cv-slider>
+  <div class="space-y-4">
+    <!-- Generated Password -->
+    <PasswordResult
+      :value="password"
+      label="Generated Readable Password"
+      description="Easy to read and type password using common words."
+      save-type="readable"
+    />
+
+    <!-- Controls -->
+    <div>
+      <label class="block text-xs font-medium text-muted-foreground mb-1.5">
+        Number of Words: {{ length }}
+      </label>
+      <input
+        type="range"
+        v-model.number="length"
+        min="2"
+        max="8"
+        class="slider w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer"
+      />
+      <div class="flex justify-between text-xs text-muted-foreground mt-1">
+        <span>2</span>
+        <span>8</span>
+      </div>
     </div>
-    <div style="float: right; margin-top: 1.5rem;">
-                    <span style="line-height: 2.5rem;"
-                          v-if="copiedVisible"> Copied ! </span>
-      <cv-button @click="()=>copyCode(this.password)">
-        Copy
-      </cv-button>
 
+    <!-- Generate Button -->
+    <button
+      @click="generatePassword"
+      class="btn-primary w-full text-base font-semibold"
+    >
+      Generate New Password
+    </button>
 
-      <cv-button style="margin-left: 0.5rem;" @click="generatePassword">
-        Generate
-      </cv-button>
-
-
+    <!-- Info Box -->
+    <div class="glass-card border border-border/50 p-3">
+      <h4 class="font-semibold text-foreground mb-1.5 text-sm">Readable Passwords</h4>
+      <p class="text-xs text-muted-foreground">
+        Uses common words separated by hyphens. Easy to remember and type!
+      </p>
     </div>
   </div>
 </template>
-<script>
 
-import WordsList from './words.json'
+<script setup>
+import { ref, watch, onMounted } from 'vue';
+import PasswordResult from '../../components/ui/PasswordResult.vue';
+import WordsList from './words.json';
 
-function generatePassword (length) {
-  let retVal = [];
-  for (let i = 0, n = WordsList.length; i < length; ++i) {
-    retVal.push(WordsList[(Math.floor(Math.random() * n))]);
+const password = ref('');
+const length = ref(3);
+
+const generatePassword = () => {
+  const words = [];
+  const array = new Uint32Array(length.value);
+  crypto.getRandomValues(array);
+  
+  for (let i = 0; i < length.value; i++) {
+    words.push(WordsList[array[i] % WordsList.length]);
   }
-  return retVal.join("-");
-}
+  
+  password.value = words.join('-');
+};
 
-export default {
-  created () {
-
-    this.generatePassword();
-  },
-  data: function () {
-    return {
-      length: "3",
-      password: "",
-      copiedVisible: false,
-      visibleTimer: null
-    }
-  },
-  methods: {
-
-    generatePassword () {
-      this.password = generatePassword(this.length);
-    },
-    // Yea this is copied again & again :/
-    copyCode (value) {
-      if (this.visibleTimer) clearTimeout(this.visibleTimer);
-      const el = document.createElement('textarea');
-      el.value = value;
-      el.setAttribute('readonly', '');
-      el.style.position = 'absolute';
-      el.style.left = '-9999px';
-      document.body.appendChild(el);
-      const selected = document.getSelection().rangeCount > 0 ? document.getSelection().getRangeAt(0) : false;
-      el.select();
-      document.execCommand('copy');
-      document.body.removeChild(el);
-      if (selected) {
-        document.getSelection().removeAllRanges();
-        document.getSelection().addRange(selected);
-      }
-      this.copiedVisible = true;
-      this.visibleTimer = setTimeout(() => {
-        this.copiedVisible = false
-      }, 2000)
-    }
-  }
-}
+watch(length, generatePassword);
+onMounted(generatePassword);
 </script>
