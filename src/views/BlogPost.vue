@@ -45,7 +45,6 @@
 <script>
 import { ref, watchEffect } from 'vue';
 import { useRoute } from 'vue-router';
-import matter from 'gray-matter';
 import MarkdownIt from 'markdown-it';
 
 export default {
@@ -62,17 +61,53 @@ export default {
         const key = `./${slug}.md`;
         
         if (postsContext.keys().includes(key)) {
-          const content = postsContext(key).default;
-          const { data, content: markdownContent } = matter(content);
+          const module = postsContext(key);
+          const content = module.default || module;
+          
+          // Parse frontmatter manually (same as Blog.vue)
+          const lines = content.split('\n');
+          let inFrontmatter = false;
+          let frontmatterLines = [];
+          let contentLines = [];
+          let frontmatterEnded = false;
+          
+          for (let i = 0; i < lines.length; i++) {
+            if (lines[i].trim() === '---') {
+              if (!inFrontmatter) {
+                inFrontmatter = true;
+              } else {
+                frontmatterEnded = true;
+                inFrontmatter = false;
+              }
+            } else if (inFrontmatter) {
+              frontmatterLines.push(lines[i]);
+            } else if (frontmatterEnded) {
+              contentLines.push(lines[i]);
+            }
+          }
+          
+          // Parse frontmatter key-value pairs
+          const frontmatter = {};
+          frontmatterLines.forEach(line => {
+            const match = line.match(/^(\w+):\s*(.+)$/);
+            if (match) {
+              frontmatter[match[1]] = match[2];
+            }
+          });
+          
+          // Render markdown content
+          const markdownContent = contentLines.join('\n');
+          
           post.value = {
-            ...data,
+            ...frontmatter,
             content: md.render(markdownContent)
           };
         } else {
+          console.error('Post not found:', key, 'Available:', postsContext.keys());
           post.value = null;
         }
       } catch (e) {
-        console.error(e);
+        console.error('Error loading post:', e);
         post.value = null;
       }
     });

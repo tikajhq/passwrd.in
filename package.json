@@ -9,12 +9,14 @@
   },
   "dependencies": {
     "@iconify/vue": "^5.0.0",
+    "@vue/compiler-sfc": "^3.4.0",
     "core-js": "^3.35.0",
     "gray-matter": "^4.0.3",
     "markdown-it": "^14.1.0",
     "prerender-spa-plugin-next": "^4.2.3",
     "raw-loader": "^4.0.2",
     "vue": "^3.4.0",
+    "vue-loader": "^17.4.2",
     "vue-router": "^4.2.5",
     "zxcvbn": "^4.4.2"
   },
@@ -22,7 +24,6 @@
     "@vue/cli-plugin-babel": "~5.0.8",
     "@vue/cli-plugin-eslint": "~5.0.8",
     "@vue/cli-service": "~5.0.8",
-    "@vue/compiler-sfc": "^3.4.0",
     "autoprefixer": "^10.4.16",
     "eslint": "^8.56.0",
     "eslint-plugin-vue": "^9.19.2",
