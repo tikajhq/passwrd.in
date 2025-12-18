@@ -35,6 +35,21 @@
       </button>
     </div>
     <p v-if="description" class="text-xs text-muted-foreground mt-1.5 font-sans">{{ description }}</p>
+    
+    <!-- Save Toast Notification -->
+    <transition
+      enter-active-class="transition ease-out duration-200"
+      enter-from-class="opacity-0 translate-y-1"
+      enter-to-class="opacity-100 translate-y-0"
+      leave-active-class="transition ease-in duration-150"
+      leave-from-class="opacity-100 translate-y-0"
+      leave-to-class="opacity-0 translate-y-1"
+    >
+      <div v-if="saved" class="absolute top-full left-0 right-0 mt-2 p-2 bg-primary text-primary-foreground rounded-lg shadow-lg border border-primary/20 text-xs font-medium flex items-center gap-2">
+        <Icon icon="lucide:check-circle" class="w-4 h-4" />
+        {{ saveMessage }}
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -77,6 +92,8 @@ export default {
   },
   setup(props) {
     const copied = ref(false);
+    const saved = ref(false);
+    const saveMessage = ref('');
     const { addPassword } = useSavedPasswords();
 
     const copy = async () => {
@@ -91,10 +108,17 @@ export default {
 
     const save = () => {
       addPassword(props.value, props.saveType, props.saveLabel);
+      saved.value = true;
+      saveMessage.value = '✓ Saved to Quick Access';
+      setTimeout(() => {
+        saved.value = false;
+      }, 3000);
     };
 
     return {
       copied,
+      saved,
+      saveMessage,
       copy,
       save
     };

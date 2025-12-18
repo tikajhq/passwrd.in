@@ -85,32 +85,85 @@ export default {
 </script>
 
 <style scoped>
+.prose :deep(h1) {
+  @apply text-3xl font-bold text-foreground mt-8 mb-4 first:mt-0;
+}
+
 .prose :deep(h2) {
-  @apply text-2xl font-bold text-foreground mt-6 mb-3;
+  @apply text-2xl font-bold text-foreground mt-8 mb-4 pb-2 border-b border-border/50;
 }
 
 .prose :deep(h3) {
-  @apply text-xl font-bold text-foreground mt-5 mb-2;
+  @apply text-xl font-bold text-foreground mt-6 mb-3;
 }
 
 .prose :deep(p) {
-  @apply text-muted-foreground leading-relaxed mb-3 text-sm;
+  @apply text-muted-foreground leading-relaxed mb-4 text-base;
 }
 
 .prose :deep(ul),
 .prose :deep(ol) {
-  @apply mb-3 pl-5;
+  @apply mb-4 pl-6 space-y-2;
 }
 
 .prose :deep(li) {
-  @apply text-muted-foreground mb-1.5 text-sm;
+  @apply text-muted-foreground text-base leading-relaxed;
+}
+
+.prose :deep(ul > li) {
+  @apply list-disc;
+}
+
+.prose :deep(ol > li) {
+  @apply list-decimal;
 }
 
 .prose :deep(code) {
-  @apply bg-muted px-2 py-0.5 rounded text-xs font-sans text-primary;
+  @apply bg-muted px-2 py-1 rounded text-sm font-mono text-primary border border-border/30;
+}
+
+.prose :deep(pre) {
+  @apply bg-card border border-border rounded-lg p-4 overflow-x-auto mb-4;
+}
+
+.prose :deep(pre code) {
+  @apply bg-transparent border-0 p-0;
 }
 
 .prose :deep(strong) {
-  @apply font-semibold text-foreground;
+  @apply font-bold text-foreground;
+}
+
+.prose :deep(em) {
+  @apply italic text-foreground/90;
+}
+
+.prose :deep(a) {
+  @apply text-primary hover:underline;
+}
+
+.prose :deep(blockquote) {
+  @apply border-l-4 border-primary/50 pl-4 italic text-muted-foreground my-4;
+}
+
+.prose :deep(hr) {
+  @apply border-border/50 my-8;
+}
+
+.prose :deep(table) {
+  @apply w-full border-collapse mb-4;
+}
+
+.prose :deep(th) {
+  @apply bg-secondary/50 border border-border px-3 py-2 text-left font-semibold text-foreground;
+}
+
+.prose :deep(td) {
+  @apply border border-border px-3 py-2 text-muted-foreground;
+}
+
+/* Emoji support */
+.prose :deep(p) {
+  @apply break-words;
 }
 </style>

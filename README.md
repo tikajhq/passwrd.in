@@ -21,30 +21,6 @@
 - ✅ **Password Strength Meter**: Real-time strength analysis
 - ✅ **Open Source**: Full transparency - review our code on GitHub
 
-### 🎨 Modern UI/UX
-- Built with **Vue 3** Composition API
-- Styled with **Tailwind CSS** for lightweight, responsive design
-- Clean, distraction-free interface
-- Mobile-first responsive design
-
-### 📚 Educational Content
-- **Security Blog**: Learn about password best practices
-- **Why passwrd.in**: Understand our privacy-first approach
-- **API Documentation**: For developers integrating password generation
-
-### 🚀 SEO Optimized
-- Structured data markup
-- Comprehensive meta tags
-- XML Sitemap included
-- Semantic HTML structure
-
-## 🛠️ Technology Stack
-
-- **Frontend**: Vue 3 (Composition API)
-- **Styling**: Tailwind CSS  
-- **Router**: Vue Router 4
-- **Build Tool**: Vue CLI 5
-- **Security**: Web Crypto API
 
 ## 📦 Installation
 

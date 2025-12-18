@@ -53,22 +53,54 @@ export default {
     const blogPosts = ref([]);
     const loading = ref(true);
 
-    const loadPosts = async () => {
+    const loadPosts = () => {
       try {
-        // Dynamically import all markdown files
-        const postModules = import.meta.glob('@/posts/*.md', { eager: true });
+        // Use require.context to load all markdown files
+        const postsContext = require.context('@/posts', false, /\.md$/);
         const posts = [];
         
-        for (const path in postModules) {
-          const module = postModules[path];
-          if (module.frontmatter) {
-            const slug = path.split('/').pop().replace('.md', '');
-            posts.push({
-              ...module.frontmatter,
-              slug
+        postsContext.keys().forEach(key => {
+          try {
+            const module = postsContext(key);
+            const content = module.default || module;
+            
+            // Parse frontmatter
+            const lines = content.split('\n');
+            let inFrontmatter = false;
+            let frontmatterLines = [];
+            
+            for (let i = 0; i < lines.length; i++) {
+              if (lines[i].trim() === '---') {
+                if (!inFrontmatter) {
+                  inFrontmatter = true;
+                } else {
+                  break;
+                }
+              } else if (inFrontmatter) {
+                frontmatterLines.push(lines[i]);
+              }
+            }
+            
+            // Parse frontmatter key-value pairs
+            const frontmatter = {};
+            frontmatterLines.forEach(line => {
+              const match = line.match(/^(\w+):\s*(.+)$/);
+              if (match) {
+                frontmatter[match[1]] = match[2];
+              }
             });
+            
+            if (frontmatter.title) {
+              const slug = key.replace('./', '').replace('.md', '');
+              posts.push({
+                ...frontmatter,
+                slug
+              });
+            }
+          } catch (err) {
+            console.error('Error loading post:', key, err);
           }
-        }
+        });
         
         blogPosts.value = posts.sort((a, b) => new Date(b.date) - new Date(a.date));
       } catch (error) {

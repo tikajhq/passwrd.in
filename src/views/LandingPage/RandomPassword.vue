@@ -107,6 +107,7 @@ import { ref, watch, onMounted } from 'vue';
 import PasswordResult from '../../components/ui/PasswordResult.vue';
 import PasswordStrength from '../../components/ui/PasswordStrength.vue';
 import { usePasswordStrength } from '../../composables/usePasswordStrength';
+import { useBrowserEntropy } from '../../composables/useBrowserEntropy';
 
 export default {
   name: 'RandomPassword',
@@ -125,6 +126,9 @@ export default {
       noSimilar: true,
       noAmbiguous: true
     });
+
+    // Browser entropy for enhanced randomness
+    const { getEnhancedRandom } = useBrowserEntropy();
 
     const getCharset = () => {
       let charset = '';
@@ -148,8 +152,8 @@ export default {
       if (!charset) return;
       
       let result = '';
-      const array = new Uint32Array(length.value);
-      crypto.getRandomValues(array);
+      // Use browser entropy-enhanced randomness
+      const array = getEnhancedRandom(length.value);
       
       for (let i = 0; i < length.value; i++) {
         result += charset[array[i] % charset.length];

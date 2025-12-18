@@ -17,10 +17,10 @@ module.exports = defineConfig({
             '/developer',
             '/custom',
             '/why',
-            '/code',
             '/blog',
             '/blog/how-to-create-strong-passwords',
-            '/blog/password-security-best-practices'
+            '/blog/password-security-best-practices',
+            '/blog/how-our-random-system-works'
           ],
         })
       );
