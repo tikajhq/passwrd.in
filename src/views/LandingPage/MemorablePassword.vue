@@ -1,26 +1,10 @@
 <template>
-  <div class="space-y-4">
+  <div class="space-y-3">
     <!-- Generated Password Display -->
     <PasswordResult
       :value="password"
       label="Generated Memorable Password"
-      description="Easy to remember, hard to guess with hacker-style substitutions."
       save-type="memorable"
-    />
-
-    <!-- Password Strength Indicator -->
-    <PasswordStrength
-      :password="password"
-      :strengthPercent="strengthPercent"
-      :strengthText="strengthText"
-      :strengthColor="strengthColor"
-      :strengthTextColor="strengthTextColor"
-      :strengthEmoji="strengthEmoji"
-      :strengthMessage="strengthMessage"
-      :hasUppercase="hasUppercase"
-      :hasLowercase="hasLowercase"
-      :hasNumbers="hasNumbers"
-      :hasSymbols="hasSymbols"
     />
 
     <!-- Personalization Options -->
@@ -157,15 +141,12 @@ import { ref, computed, watch, onMounted } from 'vue';
 import { dictionaries, leetSubstitutions } from '@/data/dictionaries.js';
 import { Icon } from '@iconify/vue';
 import PasswordResult from '@/components/ui/PasswordResult.vue';
-import PasswordStrength from '@/components/ui/PasswordStrength.vue';
-import { usePasswordStrength } from '@/composables/usePasswordStrength';
 
 export default {
   name: 'MemorablePassword',
   components: {
     Icon,
-    PasswordResult,
-    PasswordStrength
+    PasswordResult
   },
   setup() {
     const password = ref('');
@@ -307,19 +288,6 @@ export default {
     watch([selectedRegion, selectedInterests, substitutionLevel, wordCount, addNumbers, capitalizeFirst], generatePassword, { deep: true });
     onMounted(generatePassword);
 
-    const {
-      strengthPercent,
-      strengthText,
-      strengthColor,
-      strengthTextColor,
-      strengthEmoji,
-      strengthMessage,
-      hasUppercase,
-      hasLowercase,
-      hasNumbers,
-      hasSymbols
-    } = usePasswordStrength(password);
-
     return {
       password,
       selectedRegion,
@@ -332,17 +300,7 @@ export default {
       interests,
       substitutionLevels,
       toggleInterest,
-      generatePassword,
-      strengthPercent,
-      strengthText,
-      strengthColor,
-      strengthTextColor,
-      strengthEmoji,
-      strengthMessage,
-      hasUppercase,
-      hasLowercase,
-      hasNumbers,
-      hasSymbols
+      generatePassword
     };
   }
 };

@@ -14,8 +14,8 @@
           variant === 'pin' ? 'text-2xl text-center tracking-widest' : 'text-base'
         ]"
       />
-      <div class="flex items-center gap-1 px-3 bg-secondary/50 border border-border clip-corner text-muted-foreground text-xs font-medium min-w-[50px] justify-center">
-        <Icon icon="lucide:ruler" class="w-3.5 h-3.5" />
+      <div class="flex items-center gap-0.5 px-2 bg-secondary/50 border border-border clip-corner text-muted-foreground text-xs font-medium w-[42px] justify-center">
+        <Icon icon="lucide:ruler" class="w-3 h-3" />
         <span>{{ value.length }}</span>
       </div>
       <button

@@ -1,26 +1,10 @@
 <template>
-  <div class="space-y-4">
+  <div class="space-y-3">
     <!-- Generated Password Display -->
     <PasswordResult
       :value="password"
       label="Generated Password"
-      description="Password generated client-side. We never see or store it."
       save-type="random"
-    />
-
-    <!-- Password Strength Indicator -->
-    <PasswordStrength
-      :password="password"
-      :strengthPercent="strengthPercent"
-      :strengthText="strengthText"
-      :strengthColor="strengthColor"
-      :strengthTextColor="strengthTextColor"
-      :strengthEmoji="strengthEmoji"
-      :strengthMessage="strengthMessage"
-      :hasUppercase="hasUppercase"
-      :hasLowercase="hasLowercase"
-      :hasNumbers="hasNumbers"
-      :hasSymbols="hasSymbols"
     />
 
     <!-- Controls -->
@@ -105,15 +89,12 @@
 <script>
 import { ref, watch, onMounted } from 'vue';
 import PasswordResult from '../../components/ui/PasswordResult.vue';
-import PasswordStrength from '../../components/ui/PasswordStrength.vue';
-import { usePasswordStrength } from '../../composables/usePasswordStrength';
 import { useBrowserEntropy } from '../../composables/useBrowserEntropy';
 
 export default {
   name: 'RandomPassword',
   components: {
     PasswordResult,
-    PasswordStrength
   },
   setup() {
     const password = ref('');
@@ -174,19 +155,6 @@ export default {
       }
     };
 
-    const {
-      strengthPercent,
-      strengthText,
-      strengthColor,
-      strengthTextColor,
-      strengthEmoji,
-      strengthMessage,
-      hasUppercase,
-      hasLowercase,
-      hasNumbers,
-      hasSymbols
-    } = usePasswordStrength(password);
-
     watch([length, options], generatePassword, { deep: true });
     onMounted(generatePassword);
 
@@ -196,17 +164,7 @@ export default {
       options,
       generatePassword,
       incrementLength,
-      decrementLength,
-      strengthPercent,
-      strengthText,
-      strengthColor,
-      strengthTextColor,
-      strengthEmoji,
-      strengthMessage,
-      hasUppercase,
-      hasLowercase,
-      hasNumbers,
-      hasSymbols
+      decrementLength
     };
   }
 };

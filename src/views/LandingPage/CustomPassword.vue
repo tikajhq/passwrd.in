@@ -1,26 +1,10 @@
 <template>
-  <div class="space-y-4">
+  <div class="space-y-3">
     <!-- Generated Password -->
     <PasswordResult
       :value="password"
       label="Generated Password"
-      description="Create passwords from your own pattern or template."
       save-type="custom"
-    />
-
-    <!-- Password Strength Indicator -->
-    <PasswordStrength
-      :strengthPercent="strengthPercent"
-      :strengthText="strengthText"
-      :strengthColor="strengthColor"
-      :strengthTextColor="strengthTextColor"
-      :strengthEmoji="strengthEmoji"
-      :strengthMessage="strengthMessage"
-      :hasUppercase="hasUppercase"
-      :hasLowercase="hasLowercase"
-      :hasNumbers="hasNumbers"
-      :hasSymbols="hasSymbols"
-      :password="password"
     />
 
     <!-- Pattern Input -->
@@ -78,32 +62,15 @@
 <script>
 import { ref, watch } from 'vue';
 import PasswordResult from '../../components/ui/PasswordResult.vue';
-import PasswordStrength from '../../components/ui/PasswordStrength.vue';
-import { usePasswordStrength } from '../../composables/usePasswordStrength';
 
 export default {
   name: 'CustomPassword',
   components: {
-    PasswordResult,
-    PasswordStrength
+    PasswordResult
   },
   setup() {
     const password = ref('');
     const pattern = ref('LLLLddddSSS');
-
-    // Password strength calculation
-    const {
-      strengthPercent,
-      strengthText,
-      strengthColor,
-      strengthTextColor,
-      strengthEmoji,
-      strengthMessage,
-      hasUppercase,
-      hasLowercase,
-      hasNumbers,
-      hasSymbols
-    } = usePasswordStrength(password);
 
     const examples = [
       { pattern: 'LLLLddddSSS', description: '4  + 4 digits + 3 symbols' },
@@ -147,17 +114,7 @@ export default {
       password,
       pattern,
       examples,
-      generatePassword,
-      strengthPercent,
-      strengthText,
-      strengthColor,
-      strengthTextColor,
-      strengthEmoji,
-      strengthMessage,
-      hasUppercase,
-      hasLowercase,
-      hasNumbers,
-      hasSymbols
+      generatePassword
     };
   }
 };

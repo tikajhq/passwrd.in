@@ -1,23 +1,32 @@
 <template>
-  <div v-if="savedPasswords.length > 0" class="mt-8">
-    <!-- Header with Count Badge -->
-    <div class="flex items-center justify-between mb-4">
+  <div class="glass-card p-4">
+    <!-- Header with Count Badge - Always visible -->
+    <div class="flex items-center justify-between mb-3">
       <h3 class="text-lg font-bold text-foreground flex items-center gap-2">
         <Icon icon="lucide:clock" class="w-5 h-5 text-primary" />
         Quick Access
-        <span class="px-2 py-0.5 bg-primary/20 text-primary rounded-full text-xs font-semibold">
+        <span v-if="savedPasswords.length > 0" class="px-2 py-0.5 bg-primary/20 text-primary rounded-full text-xs font-semibold">
           {{ savedPasswords.length }}
         </span>
       </h3>
-      <span class="text-xs text-muted-foreground">Expires in 24h</span>
+      <span v-if="savedPasswords.length > 0" class="text-xs text-muted-foreground">Expires in 24h</span>
+    </div>
+
+    <!-- Empty State -->
+    <div v-if="savedPasswords.length === 0" class="bg-secondary/20 border border-border/50 rounded-lg p-4 text-center">
+      <Icon icon="lucide:clock" class="w-12 h-12 text-muted-foreground/40 mx-auto mb-2" />
+      <p class="text-sm font-semibold text-foreground mb-1">No saved passwords yet</p>
+      <p class="text-xs text-muted-foreground">
+        Click the <Icon icon="lucide:save" class="w-3.5 h-3.5 inline mx-0.5" /> <span class="font-semibold">Save</span> button when generating a password to store it here for quick access
+      </p>
     </div>
 
     <!-- Saved Passwords Grid -->
-    <div class="grid grid-cols-1 gap-3">
+    <div v-else class="grid grid-cols-1 gap-2">
       <div 
         v-for="item in savedPasswords" 
         :key="item.id" 
-        class="bg-card border border-border clip-corner p-4 hover:border-primary/50 hover:shadow-[0_0_15px_rgba(138,43,226,0.1)] transition-all group"
+        class="bg-card border border-border clip-corner p-3 hover:border-primary/50 hover:shadow-[0_0_15px_rgba(138,43,226,0.1)] transition-all group"
       >
         <div class="flex items-start justify-between gap-4">
           <!-- Password Info -->
@@ -66,8 +75,8 @@
       </div>
     </div>
 
-    <!-- Info Footer -->
-    <div class="mt-4 p-3 bg-secondary/20 border border-border/50 rounded-lg">
+    <!-- Info Footer - Only show when there are saved passwords -->
+    <div v-if="savedPasswords.length > 0" class="mt-3 p-2 bg-secondary/20 border border-border/50 rounded-lg">
       <p class="text-xs text-muted-foreground flex items-center gap-2">
         <Icon icon="lucide:info" class="w-3.5 h-3.5" />
         Passwords are stored locally in your browser and automatically expire after 24 hours

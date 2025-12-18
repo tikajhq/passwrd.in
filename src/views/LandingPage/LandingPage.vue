@@ -1,21 +1,20 @@
 <template>
   <div class="landing-page">
     <!-- Hero Section -->
-    <section class="glass-section py-12 border-b border-border/50">
+    <section class="glass-section py-6 md:py-8 border-b border-border/50">
       <div class="container mx-auto px-4 text-center">
-        <h1 class="text-4xl md:text-5xl font-bold text-foreground mb-3 animate-gradient bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+        <h1 class="text-2xl md:text-4xl font-bold text-foreground mb-2 animate-gradient bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
           Easy to Remember Password Generator<br/>
           <span class="text-primary">Hard to Guess, Simple to Use</span>
         </h1>
-        <p class="text-base text-muted-foreground mb-2">Create passwords that are easy to remember but impossible to crack</p>
-        <p class="text-sm text-muted-foreground max-w-2xl mx-auto">100% private, no tracking, client-side only</p>
+        <p class="text-sm text-muted-foreground">Create passwords that are easy to remember but impossible to crack</p>
       </div>
     </section>
 
     <!-- Password Generator Tabs -->
-    <section class="container mx-auto px-4 -mt-6 mb-8">
-      <div class="glass-card p-6">
-        <div class="flex flex-wrap gap-2 mb-6 border-b border-border/50 pb-2">
+    <section class="container mx-auto px-4 -mt-4 mb-4">
+      <div class="glass-card p-4">
+        <div class="flex flex-wrap gap-1 mb-4 border-b border-border/50 pb-2">
           <button
             v-for="tab in tabs"
             :key="tab.id"
@@ -32,10 +31,13 @@
           </button>
         </div>
 
-        <div class="min-h-[320px]">
+        <div class="min-h-[280px]">
           <component :is="currentTabComponent" />
         </div>
-        
+      </div>
+      
+      <!-- Saved Passwords Section -->
+      <div class="mt-4">
         <SavedPasswords />
       </div>
     </section>

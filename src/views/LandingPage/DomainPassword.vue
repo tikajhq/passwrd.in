@@ -1,27 +1,11 @@
 <template>
-  <div class="space-y-4">
+  <div class="space-y-3">
     <!-- Generated Password Display -->
     <PasswordResult
       :value="password"
       label="Generated Domain Password"
-      description="One master key, unique passwords for every site. You remember the formula, not each password."
       save-type="domain"
       :save-label="domain"
-    />
-
-    <!-- Password Strength Indicator -->
-    <PasswordStrength
-      :strengthPercent="strengthPercent"
-      :strengthText="strengthText"
-      :strengthColor="strengthColor"
-      :strengthTextColor="strengthTextColor"
-      :strengthEmoji="strengthEmoji"
-      :strengthMessage="strengthMessage"
-      :hasUppercase="hasUppercase"
-      :hasLowercase="hasLowercase"
-      :hasNumbers="hasNumbers"
-      :hasSymbols="hasSymbols"
-      :password="password"
     />
 
     <!-- Master Key Input -->
@@ -186,15 +170,12 @@
 import { ref, watch, onMounted } from 'vue';
 import { Icon } from '@iconify/vue';
 import PasswordResult from '@/components/ui/PasswordResult.vue';
-import PasswordStrength from '@/components/ui/PasswordStrength.vue';
-import { usePasswordStrength } from '@/composables/usePasswordStrength';
 
 export default {
   name: 'DomainPassword',
   components: {
     Icon,
-    PasswordResult,
-    PasswordStrength
+    PasswordResult
   },
   setup() {
     const password = ref('');
@@ -207,19 +188,6 @@ export default {
     const includeSymbols = ref(true);
     const capitalizeFirst = ref(true);
 
-    // Password strength calculation
-    const {
-      strengthPercent,
-      strengthText,
-      strengthColor,
-      strengthTextColor,
-      strengthEmoji,
-      strengthMessage,
-      hasUppercase,
-      hasLowercase,
-      hasNumbers,
-      hasSymbols
-    } = usePasswordStrength(password);
 
     const algorithms = [
       {
@@ -385,17 +353,7 @@ export default {
       algorithms,
       examples,
       applyExample,
-      generatePassword,
-      strengthPercent,
-      strengthText,
-      strengthColor,
-      strengthTextColor,
-      strengthEmoji,
-      strengthMessage,
-      hasUppercase,
-      hasLowercase,
-      hasNumbers,
-      hasSymbols
+      generatePassword
     };
   }
 };

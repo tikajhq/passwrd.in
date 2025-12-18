@@ -1,26 +1,10 @@
 <template>
-  <div class="space-y-4">
+  <div class="space-y-3">
     <!-- Generated Passphrase -->
     <PasswordResult
       :value="passphrase"
       label="Generated Passphrase"
-      description="Easy to remember, hard to crack. Perfect for master passwords."
       save-type="passphrase"
-    />
-
-    <!-- Password Strength Indicator -->
-    <PasswordStrength
-      :strengthPercent="strengthPercent"
-      :strengthText="strengthText"
-      :strengthColor="strengthColor"
-      :strengthTextColor="strengthTextColor"
-      :strengthEmoji="strengthEmoji"
-      :strengthMessage="strengthMessage"
-      :hasUppercase="hasUppercase"
-      :hasLowercase="hasLowercase"
-      :hasNumbers="hasNumbers"
-      :hasSymbols="hasSymbols"
-      :password="passphrase"
     />
 
     <!-- Controls -->
@@ -91,15 +75,12 @@
 <script>
 import { ref, watch, onMounted } from 'vue';
 import PasswordResult from '../../components/ui/PasswordResult.vue';
-import PasswordStrength from '../../components/ui/PasswordStrength.vue';
-import { usePasswordStrength } from '../../composables/usePasswordStrength';
 import WordsList from './words.json';
 
 export default {
   name: 'PassphrasePassword',
   components: {
-    PasswordResult,
-    PasswordStrength
+    PasswordResult
   },
   setup() {
     const passphrase = ref('');
@@ -108,19 +89,6 @@ export default {
     const capitalize = ref(true);
     const includeNumber = ref(false);
 
-    // Password strength calculation
-    const {
-      strengthPercent,
-      strengthText,
-      strengthColor,
-      strengthTextColor,
-      strengthEmoji,
-      strengthMessage,
-      hasUppercase,
-      hasLowercase,
-      hasNumbers,
-      hasSymbols
-    } = usePasswordStrength(passphrase);
 
     const generatePassphrase = () => {
       const words = [];
@@ -154,17 +122,7 @@ export default {
       separator,
       capitalize,
       includeNumber,
-      generatePassphrase,
-      strengthPercent,
-      strengthText,
-      strengthColor,
-      strengthTextColor,
-      strengthEmoji,
-      strengthMessage,
-      hasUppercase,
-      hasLowercase,
-      hasNumbers,
-      hasSymbols
+      generatePassphrase
     };
   }
 };
